@@ -1,37 +1,53 @@
 # Vértice Digital — site
 
-Site institucional da Vértice Digital, pronto para hospedar no Render.
+Site institucional da Vértice Digital: React + Tailwind CSS, com animações
+próprias (sem bibliotecas extras).
+
+## Estrutura
 
 ```
-public/
-  index.html   ← o site inteiro (textos, estilos, imagens e animações)
-  robots.txt   ← libera o Google para indexar o site
-render.yaml    ← configuração da hospedagem no Render
+src/                      ← código do site
+  App.jsx                 ← ordem das seções
+  config.js               ← WhatsApp, e-mail, Instagram, cidade e menu
+  styles.css              ← cores, fontes e animações
+  components/
+    Header.jsx            ← topo e menu
+    Sections.jsx          ← Início, Sobre, Serviços, Diferenciais e chamada final
+    Portfolio.jsx         ← seção de projetos
+    HeroVisual.jsx        ← o "V" em forma de cérebro
+    Motion.jsx            ← animações de texto, cards e faixa
+    ui/                   ← grade animada, botão magnético e rodapé
+  assets/portfolio/       ← imagens dos projetos
+public/favicon.svg        ← ícone da aba
+index.html                ← página base (título e descrição para o Google)
+site/                     ← site PRONTO (é o que o Render publica)
+render.yaml               ← configuração do Render
 ```
 
-## Publicar no Render
+## Rodar no computador
 
-1. Crie um repositório no GitHub (pode ser privado) e envie estes arquivos,
-   mantendo a pasta `public/`.
-2. No Render: **New → Blueprint**, escolha o repositório e confirme.
-   O Render lê o `render.yaml` e cria o site sozinho.
-   (Outra forma: **New → Static Site**, com *Build Command* `echo ok` e
-   *Publish Directory* `public`.)
-3. Em 1–2 minutos o site abre em `https://vertice-digital.onrender.com`
-   (ou um nome parecido).
+Precisa do Node.js 20 ou mais novo.
 
-## Usar o domínio .com.br
+```bash
+npm install
+npm run dev        # abre em http://localhost:5173
+npm run build      # gera a versão final na pasta dist/
+```
 
-1. No Render, abra o site → **Settings → Custom Domains → Add** e digite o
-   domínio (ex.: `verticedigital.com.br`). O `www` é adicionado junto.
-2. No Registro.br, abra o domínio → **DNS → Editar zona** e crie:
-   - registro **A**, nome vazio (raiz), valor `216.24.57.1`
-   - registro **CNAME**, nome `www`, valor `vertice-digital.onrender.com`
-     (use o endereço .onrender.com que o Render mostrar)
-3. Volte ao Render e clique em **Verify**. O cadeado (https) é criado
-   automaticamente.
+## Hospedagem no Render
 
-## Atualizar o site
+O `render.yaml` publica a pasta `site/`, que já está pronta. No Render:
+**New → Blueprint** e escolha este repositório.
 
-Troque o arquivo `public/index.html` no GitHub pelo novo. O Render publica a
-nova versão sozinho a cada alteração.
+Para publicar uma versão nova depois de mudar o código: rode `npm run build`
+e copie o conteúdo de `dist/` para `site/`. Ou mude o `render.yaml` para
+`buildCommand: npm install && npm run build` e `staticPublishPath: ./dist`,
+assim o Render compila sozinho a cada envio.
+
+## Domínio .com.br
+
+1. No Render: site → **Settings → Custom Domains → Add** e digite o domínio.
+2. No Registro.br: domínio → **DNS → Editar zona**:
+   - registro **A**, nome vazio, valor `216.24.57.1`
+   - registro **CNAME**, nome `www`, valor `<seu-site>.onrender.com`
+3. No Render, clique em **Verify**. O https é criado automaticamente.

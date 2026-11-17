@@ -3,9 +3,9 @@ services:
   - type: web
     runtime: static
     name: vertice-digital
-    # O site já vai pronto na pasta public/, então não há nada para compilar.
+    # O site já vai pronto na pasta site/, então não há nada para compilar.
     buildCommand: echo "Site da Vértice Digital já compilado"
-    staticPublishPath: ./public
+    staticPublishPath: ./site
     headers:
       - path: /*
         name: X-Content-Type-Options
