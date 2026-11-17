@@ -1,0 +1,26 @@
+# Configuração da hospedagem no Render (site estático, plano gratuito)
+services:
+  - type: web
+    runtime: static
+    name: vertice-digital
+    # O site já vai pronto na pasta public/, então não há nada para compilar.
+    buildCommand: echo "Site da Vértice Digital já compilado"
+    staticPublishPath: ./public
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+    routes:
+      # Qualquer endereço desconhecido abre a página principal
+      - type: rewrite
+        source: /*
+        destination: /index.html
